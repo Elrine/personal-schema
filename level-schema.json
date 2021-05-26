@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "title": "Level",
+    "description": "a level of the project",
+    "type": "object",
+    "definitions": {
+        "coordonate": {
+            "type": "object",
+            "$id": "#coordonate",
+            "description": "coordonate on the level or the element",
+            "properties": {
+                "x": {
+                    "type": "number",
+                    "description": "coordonate on x"
+                },
+                "y": {
+                    "type": "number",
+                    "description": "coordonate on y"
+                }
+            },
+            "required": ["x", "y"],
+            "additionalProperties": false
+        },
+        "element": {
+            "type": "object",
+            "$id": "#element",
+            "description": "element of the level",
+            "properties": {
+                "startCoordonate": {
+                    "description": "start of the element on the level",
+                    "$ref": "#coordonate"
+                },
+                "endCoordonate": {
+                    "description": "end of the element on the level",
+                    "$ref": "#coordonate"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "definied the type of element"
+                },
+                "initalState": {
+                    "type": "string"
+                },
+                "variables": {
+                    "type": "array",
+                    "description": "list of the variable of this instance",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "id of the variable"
+                            },
+                            "value": {
+                                "oneOf": [{
+                                        "type": "integer"
+                                    },
+                                    {
+                                        "type": "number"
+                                    },
+                                    {
+                                        "$ref": "#coordonate"
+                                    }
+                                ]
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "tags": {
+                    "type":"array",
+                    "items": {
+                        "type":"string"
+                    }
+                },
+                "nameId": {
+                    "type": "string",
+                    "description": "definied the unique name of this element"
+                }
+            },
+            "required": ["startCoordonate", "endCoordonate", "type", "initalState"],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "backgroundImage": {
+            "type": "string",
+            "description": "background image of the level"
+        },
+        "name": {
+            "type": "string",
+            "description": "name of the level"
+        },
+        "gravity": {
+            "type": "number",
+            "description": "gravity of the level"
+        },
+        "scale": {
+            "type": "number"
+        },
+        "map": {
+            "type": "array",
+            "description": "list the element",
+            "items": {
+                "$ref": "#element"
+            }
+        }
+    },
+    "additionalProperties": false
+}
